@@ -4,6 +4,14 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
 	public GameObject PausePanelControl;
+	float distance = 10;
+
+	private void OnMouseDrag()
+	{
+		Vector3 mousePosition = new Vector3 (Input.mousePosition.x, Input.mousePosition.y);
+		Vector3 objPosition = Camera.main.ScreenToWorldPoint (mousePosition);
+		transform.position = objPosition;
+	}
 
 	public void MainMenu()
 	{
