@@ -8,30 +8,34 @@ public class ButtonDetect : MonoBehaviour {
 
 	private string[] ucgen = new [] { "ucgen_0", "ucgen_1", "ucgen_2", "ucgen_3" };
 	private string[] button = new[] {"Button0", "Button1", "Button2", "Button3"};
+	private GameObject[] buttonObject = new GameObject[4]; 
 
 	public int localScore = 0;
 	HighScore highScoreScript;
+
+	private AudioSource audioSource;
+	[SerializeField]
+	private AudioClip[] audioClips;
 
 	void Start()
 	{
 		GameObject HScore = GameObject.Find ("GameManager");
 		highScoreScript = HScore.GetComponent<HighScore> ();
-	}
 
-	void Update()
-	{
-		//CorrectQuest ();
+		audioSource = GameObject.Find("GameManager").GetComponent<AudioSource> ();
 	}
 
 	void CorrectQuest()
 	{
-		highScoreScript.currentScore++;
+		++highScoreScript.currentScore;
 		this.gameObject.SetActive (false);
+		audioSource.PlayOneShot (audioClips [0]);
 	}
 
 	void WrongQuest()
 	{
 		highScoreScript.currentScore--;
+		audioSource.PlayOneShot (audioClips [1]);
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -39,19 +43,17 @@ public class ButtonDetect : MonoBehaviour {
 		if (other.gameObject.name == ucgen[0] && gameObject.name == button[0])
 			CorrectQuest ();
 
-		if (other.gameObject.name == ucgen [1] && gameObject.name== button [1]) 
+		else if (other.gameObject.name == ucgen [1] && gameObject.name== button [1]) 
 			CorrectQuest ();
 
-		if (other.gameObject.name == ucgen [2] && gameObject.name == button [2]) 
+		else if (other.gameObject.name == ucgen [2] && gameObject.name == button [2]) 
 			CorrectQuest ();
 		
-		if (other.gameObject.name == ucgen [3] && gameObject.name == button [3])
+		else if (other.gameObject.name == ucgen [3] && gameObject.name == button [3])
 			CorrectQuest ();
-		if
-		   (other.gameObject.name != ucgen[0] && gameObject.name != button[0]   && 
-			other.gameObject.name != ucgen [1] && gameObject.name != button [1] &&
-			other.gameObject.name != ucgen [2] && gameObject.name != button [2] &&
-			other.gameObject.name != ucgen [3] && gameObject.name != button [3] )
+		else 
+		{
 			WrongQuest ();
+		}
 	}
 }

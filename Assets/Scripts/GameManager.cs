@@ -31,11 +31,16 @@ public class GameManager : MonoBehaviour {
 
 	List<int> numbers = new List<int>(4);
 
+	private AudioSource audioSource;
+
+	[SerializeField]
+	private AudioClip audioClip;
+
 	void Start()
 	{
 		TimeControl (1.0f);
 		FindComponents ();
-
+		audioSource = GameObject.Find("GameManager").GetComponent<AudioSource> ();
 		if (unansweredQuetions == null || unansweredQuetions.Count == 0) 
 		{
 			unansweredQuetions = questions.ToList<Question> ();
@@ -50,11 +55,19 @@ public class GameManager : MonoBehaviour {
 		{
 			SetCurrentQuestion ();
 		}
+		int i = 0;
+
+		if (ButtonObjects [0].activeSelf == false &&
+			ButtonObjects [1].activeSelf == false &&
+			ButtonObjects [2].activeSelf == false &&
+			ButtonObjects [3].activeSelf == false) 
+		{
+			SetCurrentQuestion ();
+		}
 	}
 
 	public void SetCurrentQuestion()
 	{
-
 		int randomQuestionIndex = UnityEngine.Random.Range (0, unansweredQuetions.Count);
 		currentQuestion = unansweredQuetions [randomQuestionIndex];
 		QuestionText.text = currentQuestion.question;
@@ -70,15 +83,27 @@ public class GameManager : MonoBehaviour {
 		}
 
 		int thisNumber;
+		float posX;
+		float posY;
 
-		for (int i = 0; i <= 1; i++)
+		for (int i = 0; i <= 3; i++)
 		{
-			thisNumber = UnityEngine.Random.Range (0, 1);
-			Debug.Log ("Random" + i + "number:" + thisNumber);
-			ButtonPositions [i].localPosition = new Vector2 (changePossesX[thisNumber], changePossesY[thisNumber]);
-			numbers.Remove(thisNumber);
+			//thisNumber = UnityEngine.Random.Range (0, 1);
+			posX = UnityEngine.Random.Range (40f, 220f);
+			posY = UnityEngine.Random.Range (201f, -400f);
+//			Debug.Log ("Random" + i + "number:" + thisNumber);
+			ButtonPositions [i].localPosition = new Vector2 (posX, posY);
+//			numbers.Remove(thisNumber);
 		}
-		unansweredQuetions.RemoveAt (randomQuestionIndex);;
+	    int count = 0;
+		while(count < 4)
+		{
+			ButtonObjects [count].SetActive (true);
+			count++;
+		}
+		count = 0;
+		unansweredQuetions.RemoveAt (randomQuestionIndex);
+		audioSource.PlayOneShot (audioClip);
 	}
 
 	void FindComponents()

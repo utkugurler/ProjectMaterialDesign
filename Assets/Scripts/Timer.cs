@@ -8,9 +8,15 @@ public class Timer : MonoBehaviour {
 	[SerializeField]
 	private GameObject timePanel;
 
+	private AudioSource audioSource;
+
+	[SerializeField]
+	private AudioClip audioClip;
+
 	void Start()
 	{
 		StartCoroutine("LoseTime");
+		audioSource = GameObject.Find("GameManager").GetComponent<AudioSource> ();
 	}
 
 	void Update()
@@ -21,6 +27,7 @@ public class Timer : MonoBehaviour {
 		{
 			StopCoroutine("LoseTime");
 			countdownText.text = "Times Up!";
+
 			Time.timeScale = 0.0f;
 			timePanel.SetActive (true);
 		}
@@ -31,6 +38,7 @@ public class Timer : MonoBehaviour {
 		while (true)
 		{
 			yield return new WaitForSeconds(1);
+			audioSource.PlayOneShot (audioClip);
 			timeLeft--;
 		}
 	}

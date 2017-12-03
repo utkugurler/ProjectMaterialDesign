@@ -35,9 +35,13 @@ public class HighScore : MonoBehaviour {
 
 	void LateUpdate()
 	{
-		Debug.LogWarning ("Current Score: " + currentScore);
+		//Debug.LogWarning ("Current Score: " + currentScore);
 		ScoreText.text = "Score: " + currentScore.ToString ();
 		ScoreControl ();
+		if(currentScore <= 0)
+		{
+			currentScore = 0;
+		}
 	}
 
 }

@@ -1,7 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour {
+
+	[SerializeField]
+	private Text highscoreText;
+
+	private void Start()
+	{
+		highscoreText.text = ("HIGHSCORE: " + PlayerPrefs.GetInt ("MaxScore"));
+	}
 
 	public void StartGame()
 	{
