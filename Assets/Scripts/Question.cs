@@ -1,6 +1,4 @@
-﻿using UnityEditor;
-
-[System.Serializable]
+﻿[System.Serializable]
 public class Question
 {
 	public string question;

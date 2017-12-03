@@ -3,16 +3,41 @@ using UnityEngine.UI;
 
 public class HighScore : MonoBehaviour {
 
-	public int currentScore;
-	public Text ScoreText;
+	public int currentScore = 0;
+	public int maxScore;
 
-	void Start () {
-		currentScore = 0;
+	[SerializeField]
+	private Text ScoreText;
+
+	[Header("Time Panel Scores")]
+	[SerializeField]
+	private Text currentScoreText;
+	[SerializeField]
+	private Text maxScoreText;
+	[SerializeField]
+	private Text newScoreText;
+
+	void Awake()
+	{
+		maxScore = PlayerPrefs.GetInt ("MaxScore");
 	}
 
-	void Update()
+	void ScoreControl()
 	{
+		if (maxScore < currentScore)
+		{
+			PlayerPrefs.SetInt ("MaxScore", currentScore);
+			newScoreText.gameObject.SetActive (true);
+		}
+		currentScoreText.text = "Current Score: " + currentScore.ToString ();
+		maxScoreText.text = "High Score: " + PlayerPrefs.GetInt ("MaxScore");
+	}
+
+	void LateUpdate()
+	{
+		Debug.LogWarning ("Current Score: " + currentScore);
 		ScoreText.text = "Score: " + currentScore.ToString ();
+		ScoreControl ();
 	}
 
 }
