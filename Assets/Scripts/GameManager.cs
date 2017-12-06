@@ -10,14 +10,7 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject PausePanelControl;
 
-	[Header("Questions")]
-	public Question[] questions;
-
-	[HideInInspector]
-	public Question currentQuestion;
-
-	private static RectTransform[] ButtonPositions = new RectTransform[4];
-	private static List<Question> unansweredQuetions;
+	private ButtonDetect buttonDetectScript;
 
 	private Text[] ButtonText = new Text[4];
 	private Text QuestionText;
@@ -25,44 +18,64 @@ public class GameManager : MonoBehaviour {
 	float[] changePossesX = new float[2] {7.9f, 194.7f};
 	float[] changePossesY = new float[2] {84.7f, 42.6f};
 
-	private System.Random random = new System.Random ();
-
-	public GameObject[] ButtonObjects;
+	private static RectTransform[] ButtonPositions = new RectTransform[4];
+	private static List<Question> unansweredQuetions;
 
 	List<int> numbers = new List<int>(4);
 
 	private AudioSource audioSource;
 
+	[Header("Questions")]
+	public Question[] questions;
+	[HideInInspector]
+	public Question currentQuestion;
+
+	public GameObject[] ButtonObjects;
+
 	[SerializeField]
 	private AudioClip audioClip;
+
+	[SerializeField]
+	private Text NextQuestionTxt;
 
 	void Start()
 	{
 		TimeControl (1.0f);
 		FindComponents ();
+
 		audioSource = GameObject.Find("GameManager").GetComponent<AudioSource> ();
+
 		if (unansweredQuetions == null || unansweredQuetions.Count == 0) 
 		{
 			unansweredQuetions = questions.ToList<Question> ();
 		}
-
+		audioSource.PlayOneShot (audioClip);
 		SetCurrentQuestion ();
+	}
+
+	IEnumerator TransitionToNextQuestion()
+	{
+		unansweredQuetions.Remove (currentQuestion);
+		NextQuestionTxt.gameObject.SetActive(true);
+
+		yield return new WaitForSeconds (0.5f);
+
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 	}
 
 	void Update()
 	{
 		if (Input.GetKeyDown (KeyCode.A)) 
 		{
-			SetCurrentQuestion ();
+			StartCoroutine (TransitionToNextQuestion ());
 		}
-		int i = 0;
 
 		if (ButtonObjects [0].activeSelf == false &&
 			ButtonObjects [1].activeSelf == false &&
 			ButtonObjects [2].activeSelf == false &&
 			ButtonObjects [3].activeSelf == false) 
 		{
-			SetCurrentQuestion ();
+			StartCoroutine(TransitionToNextQuestion());
 		}
 	}
 
@@ -77,33 +90,30 @@ public class GameManager : MonoBehaviour {
 			ButtonText[i].text = currentQuestion.answers [i];
 		}
 
-		for (int i = 0; i <= 1; i++) 
-		{
-			numbers.Add(i);
-		}
-
 		int thisNumber;
 		float posX;
 		float posY;
 
 		for (int i = 0; i <= 3; i++)
 		{
-			//thisNumber = UnityEngine.Random.Range (0, 1);
 			posX = UnityEngine.Random.Range (40f, 220f);
-			posY = UnityEngine.Random.Range (201f, -400f);
-//			Debug.Log ("Random" + i + "number:" + thisNumber);
+			posY = UnityEngine.Random.Range (201f, -260f);
 			ButtonPositions [i].localPosition = new Vector2 (posX, posY);
-//			numbers.Remove(thisNumber);
+
 		}
+
 	    int count = 0;
+
 		while(count < 4)
 		{
 			ButtonObjects [count].SetActive (true);
 			count++;
 		}
 		count = 0;
-		unansweredQuetions.RemoveAt (randomQuestionIndex);
-		audioSource.PlayOneShot (audioClip);
+
+//		unansweredQuetions.RemoveAt (randomQuestionIndex);
+		//audioSource.PlayOneShot (audioClip);
+
 	}
 
 	void FindComponents()
@@ -114,8 +124,10 @@ public class GameManager : MonoBehaviour {
 			Debug.Log ("Button" + i + " position :" + ButtonPositions[i].transform.position.y);
 			ButtonText[i] = GameObject.Find ("Canvas/Buttons/Button" + i + "/Text").GetComponent<Text>();
 		}
+
 		QuestionText = GameObject.Find ("Canvas/Question").GetComponent<Text> ();
 	}
+
 
 #region Menus
 	public void MainMenu()

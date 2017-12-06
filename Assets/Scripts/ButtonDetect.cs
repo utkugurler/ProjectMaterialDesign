@@ -10,24 +10,28 @@ public class ButtonDetect : MonoBehaviour {
 	private string[] button = new[] {"Button0", "Button1", "Button2", "Button3"};
 	private GameObject[] buttonObject = new GameObject[4]; 
 
-	public int localScore = 0;
+	public int localScore;
 	HighScore highScoreScript;
 
 	private AudioSource audioSource;
 	[SerializeField]
 	private AudioClip[] audioClips;
 
+	public Text[] triangleText;
+	[SerializeField]
+	private Text[] buttonText;
+
 	void Start()
 	{
 		GameObject HScore = GameObject.Find ("GameManager");
 		highScoreScript = HScore.GetComponent<HighScore> ();
-
 		audioSource = GameObject.Find("GameManager").GetComponent<AudioSource> ();
 	}
 
 	void CorrectQuest()
 	{
 		++highScoreScript.currentScore;
+
 		this.gameObject.SetActive (false);
 		audioSource.PlayOneShot (audioClips [0]);
 	}
@@ -40,17 +44,23 @@ public class ButtonDetect : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.name == ucgen[0] && gameObject.name == button[0])
+		if (other.gameObject.name == ucgen [0] && gameObject.name == button [0]) {
 			CorrectQuest ();
-
-		else if (other.gameObject.name == ucgen [1] && gameObject.name== button [1]) 
+			triangleText[0].gameObject.SetActive(true);
+			triangleText[0].text = buttonText[0].text;
+		} else if (other.gameObject.name == ucgen [1] && gameObject.name == button [1]) {
 			CorrectQuest ();
-
-		else if (other.gameObject.name == ucgen [2] && gameObject.name == button [2]) 
+			triangleText[1].gameObject.SetActive(true);
+			triangleText[1].text = buttonText[1].text;
+		} else if (other.gameObject.name == ucgen [2] && gameObject.name == button [2]) { 
 			CorrectQuest ();
-		
-		else if (other.gameObject.name == ucgen [3] && gameObject.name == button [3])
+			triangleText[2].gameObject.SetActive(true);
+			triangleText[2].text = buttonText[2].text;
+		} else if (other.gameObject.name == ucgen [3] && gameObject.name == button [3]) {
 			CorrectQuest ();
+			triangleText[3].gameObject.SetActive(true);
+			triangleText[3].text = buttonText[3].text;
+		}
 		else 
 		{
 			WrongQuest ();

@@ -7,8 +7,12 @@ public class MenuManager : MonoBehaviour {
 	[SerializeField]
 	private Text highscoreText;
 
+	public HighScore highScoreScript;
+
 	private void Start()
 	{
+		PlayerPrefs.SetInt("CurrentScore", 0);
+		PlayerPrefs.SetInt ("TimeLeft", 30);
 		highscoreText.text = ("HIGHSCORE: " + PlayerPrefs.GetInt ("MaxScore"));
 	}
 

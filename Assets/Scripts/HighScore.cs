@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class HighScore : MonoBehaviour {
 
-	public int currentScore = 0;
+	public int currentScore;
 	public int maxScore;
 
 	[SerializeField]
@@ -20,6 +20,7 @@ public class HighScore : MonoBehaviour {
 	void Awake()
 	{
 		maxScore = PlayerPrefs.GetInt ("MaxScore");
+		currentScore = PlayerPrefs.GetInt ("CurrentScore");
 	}
 
 	void ScoreControl()
@@ -35,8 +36,8 @@ public class HighScore : MonoBehaviour {
 
 	void LateUpdate()
 	{
-		//Debug.LogWarning ("Current Score: " + currentScore);
-		ScoreText.text = "Score: " + currentScore.ToString ();
+		PlayerPrefs.SetInt ("CurrentScore", currentScore);
+		ScoreText.text = "Score: " + PlayerPrefs.GetInt("CurrentScore").ToString ();
 		ScoreControl ();
 		if(currentScore <= 0)
 		{

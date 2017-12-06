@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Timer : MonoBehaviour {
 
-	public int timeLeft = 5;
+	public int timeLeft = 30;
 	public Text countdownText;
 	[SerializeField]
 	private GameObject timePanel;
@@ -15,19 +15,26 @@ public class Timer : MonoBehaviour {
 
 	void Start()
 	{
+		timeLeft = PlayerPrefs.GetInt ("TimeLeft");
+
+		if (timeLeft <= 0) 
+		{
+			timeLeft = 30;
+		}
+			
 		StartCoroutine("LoseTime");
 		audioSource = GameObject.Find("GameManager").GetComponent<AudioSource> ();
 	}
 
 	void Update()
 	{
-		countdownText.text = ("Kalan Zaman: " + timeLeft);
-
+		PlayerPrefs.SetInt ("TimeLeft", timeLeft);
+		countdownText.text = ("Kalan Zaman: " + PlayerPrefs.GetInt ("TimeLeft"));
 		if (timeLeft <= 0)
 		{
+			
 			StopCoroutine("LoseTime");
 			countdownText.text = "Times Up!";
-
 			Time.timeScale = 0.0f;
 			timePanel.SetActive (true);
 		}
@@ -38,8 +45,9 @@ public class Timer : MonoBehaviour {
 		while (true)
 		{
 			yield return new WaitForSeconds(1);
-			audioSource.PlayOneShot (audioClip);
 			timeLeft--;
+
+		//	audioSource.PlayOneShot (audioClip);
 		}
 	}
 
