@@ -23,7 +23,7 @@ public class Timer : MonoBehaviour {
 		}
 			
 		StartCoroutine("LoseTime");
-		audioSource = GameObject.Find("GameManager").GetComponent<AudioSource> ();
+		audioSource = GetComponent<AudioSource> ();
 	}
 
 	void Update()
@@ -37,6 +37,10 @@ public class Timer : MonoBehaviour {
 			countdownText.text = "Times Up!";
 			Time.timeScale = 0.0f;
 			timePanel.SetActive (true);
+		}
+		if (timePanel.activeSelf == true) 
+		{
+			audioSource.PlayOneShot (audioClip);
 		}
 	}
 

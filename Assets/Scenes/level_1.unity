@@ -706,7 +706,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 188.03, y: -23}
+  m_AnchoredPosition: {x: 188.03, y: -20.590004}
   m_SizeDelta: {x: 180.13, y: 41.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &494754236
@@ -953,36 +953,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PausePanelControl: {fileID: 1405686124}
   questions:
-  - question: Deneme
+  - question: Besin zinciri
+    answers:
+    - Kartal
+    - Tilki
+    - "Tav\u015Fan"
+    - "Havu\xE7"
+  - question: "Say\u0131lar\u0131 s\u0131rala"
     answers:
     - 1
     - 2
     - 3
     - 4
-  - question: Deneme2
+  - question: "Yerle\u015Fim birimleri"
     answers:
-    - 1
-    - 2
-    - 3
-    - 4
-  - question: Deneme3
+    - "K\xF6y"
+    - Belde
+    - "\u0130l\xE7e"
+    - "\u0130l "
+  - question: "E\u011Fitim"
     answers:
-    - 1
-    - 2
-    - 3
-    - 4
-  - question: Deneme4
+    - Anaokulu
+    - "\u0130lkokul"
+    - Ortaokul
+    - Lise
+  - question: "Ya\u015Fam"
     answers:
-    - 1
-    - 2
-    - 3
-    - 4
-  - question: Deneme5
-    answers:
-    - 1
-    - 2
-    - 3
-    - 4
+    - "\xDCreticiler"
+    - Otoburlar
+    - Etoburlar
+    - "Hep\xE7iller"
   currentQuestion:
     question: 
     answers:
@@ -3436,7 +3436,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 188.02998, y: -64.17999}
+  m_AnchoredPosition: {x: 188.02994, y: -61.770008}
   m_SizeDelta: {x: 180.13, y: 41.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2039040855
