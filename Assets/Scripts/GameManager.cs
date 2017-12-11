@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour {
 	private Text[] ButtonText = new Text[4];
 	private Text QuestionText;
 
-	float[] changePossesX = new float[2] {7.9f, 194.7f};
-	float[] changePossesY = new float[2] {84.7f, 42.6f};
+	float[] changePossesX = new float[2] {150.0f, 233.0f};
+	float[] changePossesY = new float[2] {-152.0f, 158.0f};
 
 	private static RectTransform[] ButtonPositions = new RectTransform[4];
 	private static List<Question> unansweredQuetions;
@@ -40,11 +40,12 @@ public class GameManager : MonoBehaviour {
 
 	void Start()
 	{
+		
 		TimeControl (1.0f);
 		FindComponents ();
 
-		audioSource = GameObject.Find("GameManager").GetComponent<AudioSource> ();
-
+		audioSource = GetComponent<AudioSource> ();
+		audioSource.pitch = 1.94f;
 		if (unansweredQuetions == null || unansweredQuetions.Count == 0) 
 		{
 			unansweredQuetions = questions.ToList<Question> ();
@@ -65,7 +66,8 @@ public class GameManager : MonoBehaviour {
 
 	void Update()
 	{
-		if (Input.GetKeyDown (KeyCode.A)) 
+		// Deneme için ekledim.
+		if (Input.GetKeyDown (KeyCode.A))
 		{
 			StartCoroutine (TransitionToNextQuestion ());
 		}
@@ -96,14 +98,12 @@ public class GameManager : MonoBehaviour {
 
 		for (int i = 0; i <= 3; i++)
 		{
-			posX = UnityEngine.Random.Range (40f, 220f);
-			posY = UnityEngine.Random.Range (201f, -260f);
+			posX = UnityEngine.Random.Range (changePossesX[0], changePossesX[1]);
+			posY = UnityEngine.Random.Range (changePossesY[0], changePossesY[1]);
 			ButtonPositions [i].localPosition = new Vector2 (posX, posY);
-
 		}
 
 	    int count = 0;
-
 		while(count < 4)
 		{
 			ButtonObjects [count].SetActive (true);
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour {
 		count = 0;
 
 //		unansweredQuetions.RemoveAt (randomQuestionIndex);
-		//audioSource.PlayOneShot (audioClip);
+		audioSource.PlayOneShot (audioClip);
 
 	}
 
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour {
 		}
 
 		QuestionText = GameObject.Find ("Canvas/Question").GetComponent<Text> ();
-	}
+    }
 
 
 #region Menus

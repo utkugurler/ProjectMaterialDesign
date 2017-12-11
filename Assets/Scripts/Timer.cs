@@ -5,13 +5,12 @@ public class Timer : MonoBehaviour {
 
 	public int timeLeft = 30;
 	public Text countdownText;
+
 	[SerializeField]
 	private GameObject timePanel;
-
-	private AudioSource audioSource;
-
 	[SerializeField]
 	private AudioClip audioClip;
+	private AudioSource audioSource;
 
 	void Start()
 	{
@@ -21,26 +20,21 @@ public class Timer : MonoBehaviour {
 		{
 			timeLeft = 30;
 		}
-			
-		StartCoroutine("LoseTime");
+
 		audioSource = GetComponent<AudioSource> ();
+		StartCoroutine(LoseTime());
 	}
 
 	void Update()
 	{
 		PlayerPrefs.SetInt ("TimeLeft", timeLeft);
 		countdownText.text = ("Kalan Zaman: " + PlayerPrefs.GetInt ("TimeLeft"));
-		if (timeLeft <= 0)
+		if (timeLeft <= 0) 
 		{
-			
-			StopCoroutine("LoseTime");
+			StopCoroutine (LoseTime());
 			countdownText.text = "Times Up!";
-			Time.timeScale = 0.0f;
 			timePanel.SetActive (true);
-		}
-		if (timePanel.activeSelf == true) 
-		{
-			audioSource.PlayOneShot (audioClip);
+			Time.timeScale = 0.0f;
 		}
 	}
 
@@ -51,7 +45,7 @@ public class Timer : MonoBehaviour {
 			yield return new WaitForSeconds(1);
 			timeLeft--;
 
-		//	audioSource.PlayOneShot (audioClip);
+		//		audioSource.PlayOneShot (audioClip);
 		}
 	}
 

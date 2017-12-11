@@ -21,11 +21,15 @@ public class ButtonDetect : MonoBehaviour {
 	[SerializeField]
 	private Text[] buttonText;
 
+	private Timer timerScript;
+
 	void Start()
 	{
 		GameObject HScore = GameObject.Find ("GameManager");
 		highScoreScript = HScore.GetComponent<HighScore> ();
 		audioSource = GameObject.Find("GameManager").GetComponent<AudioSource> ();
+		GameObject Timerscript = GameObject.Find ("GameManager");
+		timerScript = Timerscript.GetComponent<Timer> ();
 	}
 
 	void CorrectQuest()
@@ -34,12 +38,14 @@ public class ButtonDetect : MonoBehaviour {
 
 		this.gameObject.SetActive (false);
 		audioSource.PlayOneShot (audioClips [0]);
+		timerScript.timeLeft += 2;
 	}
 
 	void WrongQuest()
 	{
 		highScoreScript.currentScore--;
 		audioSource.PlayOneShot (audioClips [1]);
+		timerScript.timeLeft -= 1;
 	}
 
 	void OnTriggerEnter(Collider other)
