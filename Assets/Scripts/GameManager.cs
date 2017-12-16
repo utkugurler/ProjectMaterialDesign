@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour {
 	private Text[] ButtonText = new Text[4];
 	private Text QuestionText;
 
-	float[] changePossesX = new float[2] {150.0f, 233.0f};
-	float[] changePossesY = new float[2] {-152.0f, 158.0f};
+	float[] changePossesX =  new float[2] {150.0f, 233.0f};
+	float[] changePossesY =  new float[2] {-152.0f, 158.0f};
 
 	private static RectTransform[] ButtonPositions = new RectTransform[4];
 	private static List<Question> unansweredQuetions;
@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour {
 			unansweredQuetions = questions.ToList<Question> ();
 		}
 		audioSource.PlayOneShot (audioClip);
+
 		SetCurrentQuestion ();
 	}
 
@@ -101,6 +102,7 @@ public class GameManager : MonoBehaviour {
 			posX = UnityEngine.Random.Range (changePossesX[0], changePossesX[1]);
 			posY = UnityEngine.Random.Range (changePossesY[0], changePossesY[1]);
 			ButtonPositions [i].localPosition = new Vector2 (posX, posY);
+			print ("X= " + posX + "Y= " + posY);
 		}
 
 	    int count = 0;

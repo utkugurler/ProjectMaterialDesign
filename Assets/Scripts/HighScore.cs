@@ -30,8 +30,8 @@ public class HighScore : MonoBehaviour {
 			PlayerPrefs.SetInt ("MaxScore", currentScore);
 			newScoreText.gameObject.SetActive (true);
 		}
-		currentScoreText.text = "Current Score: " + currentScore.ToString ();
-		maxScoreText.text = "High Score: " + PlayerPrefs.GetInt ("MaxScore");
+		currentScoreText.text = "Şu an ki skor: " + currentScore.ToString ();
+		maxScoreText.text = "En yüksek skor: " + PlayerPrefs.GetInt ("MaxScore");
 	}
 
 	void LateUpdate()

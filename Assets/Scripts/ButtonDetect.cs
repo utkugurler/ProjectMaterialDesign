@@ -23,6 +23,7 @@ public class ButtonDetect : MonoBehaviour {
 
 	private Timer timerScript;
 
+
 	void Start()
 	{
 		GameObject HScore = GameObject.Find ("GameManager");
