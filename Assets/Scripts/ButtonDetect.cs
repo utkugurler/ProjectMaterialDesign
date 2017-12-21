@@ -20,6 +20,8 @@ public class ButtonDetect : MonoBehaviour {
 	public Text[] triangleText;
 	[SerializeField]
 	private Text[] buttonText;
+	[SerializeField]
+	private Text[] textStatus;
 
 	private Timer timerScript;
 
@@ -40,6 +42,8 @@ public class ButtonDetect : MonoBehaviour {
 		this.gameObject.SetActive (false);
 		audioSource.PlayOneShot (audioClips [0]);
 		timerScript.timeLeft += 2;
+		textStatus [0].gameObject.SetActive (true);
+		textStatus [1].gameObject.SetActive (false);
 	}
 
 	void WrongQuest()
@@ -47,6 +51,8 @@ public class ButtonDetect : MonoBehaviour {
 		highScoreScript.currentScore--;
 		audioSource.PlayOneShot (audioClips [1]);
 		timerScript.timeLeft -= 1;
+		textStatus [0].gameObject.SetActive (false);
+		textStatus [1].gameObject.SetActive (true);
 	}
 
 	void OnTriggerEnter(Collider other)
