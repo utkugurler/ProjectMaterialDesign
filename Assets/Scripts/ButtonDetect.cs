@@ -8,7 +8,7 @@ public class ButtonDetect : MonoBehaviour {
 
 	private string[] ucgen = new [] { "ucgen_0", "ucgen_1", "ucgen_2", "ucgen_3" };
 	private string[] button = new[] {"Button0", "Button1", "Button2", "Button3"};
-	private GameObject[] buttonObject = new GameObject[4]; 
+	//private GameObject[] buttonObject = new GameObject[4]; 
 
 	public int localScore;
 	HighScore highScoreScript;

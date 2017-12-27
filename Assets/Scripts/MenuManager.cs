@@ -30,4 +30,9 @@ public class MenuManager : MonoBehaviour {
 	{
 		SceneManager.LoadScene ("tutorial");
 	}
+
+	public void Evaluation()
+	{
+		SceneManager.LoadScene ("Evaluation");
+	}
 }

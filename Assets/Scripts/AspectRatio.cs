@@ -7,7 +7,7 @@ public class AspectRatio : MonoBehaviour {
 	void Start () 
 	{
 		// set the desired aspect ratio (the values in this example are
-		// hard-coded for 16:9, but you could make them into public
+		// hard-coded for 2:3, but you could make them into public
 		// variables instead so you can set them at design time)
 		float targetaspect = 2.0f / 3.0f;
 
